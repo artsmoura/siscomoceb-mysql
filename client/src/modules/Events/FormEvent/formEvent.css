@@ -1,0 +1,126 @@
+.boxForm, .boxForm-signup {
+    width: 100%;
+    border: 1px solid rgba(192, 192, 192, 0.712);
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: white;
+    margin-top: 50px;
+    margin: 0 auto;
+    flex-basis: 0;
+    flex-grow: 1.5;
+    position: relative;
+    overflow: auto;
+    max-height: 850px;
+}
+
+.boxForm {
+    margin-top: 30px;
+}
+
+.boxForm form {
+    width: 50%;
+}
+
+.boxForm h1 {
+    justify-self: first baseline;
+}
+
+.accommodationBox {
+    max-width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.accommodationBox>.inputBox {
+    width: 50%;
+}
+
+.accommodationBox>.inputBox>.formInput {
+    width: 91.3%;
+}
+
+.btnBox {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.boxForm>.btnBox>.btnBlue,
+.boxForm>.btnBox>.btnSilver {
+    min-width: 100px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+.dateRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.dateRow>.inputBox {
+    min-width: 300px;
+    max-width: 300px;
+}
+
+.dateRow>.inputBox>.formInput {
+    min-width: 270px;
+    max-width: 270px;
+}
+
+.boxRow-2 {
+    max-width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: stretch;
+    justify-content: space-between;
+}
+
+.boxRow-2>.inputBox {
+    min-width: 45%;
+}
+
+.boxRow-2>.selectBox>.selectBtn {
+    max-width: 89%;
+}
+
+.boxRow-2>.inputBox>.formInput {
+    max-width: 100%;
+}
+
+.boxRow-2>:nth-child(2)>.formInput {
+    margin-left: -17px;
+}
+
+.boxRow-2>:nth-child(2)>.selectBtn {
+    margin-left: 15px;
+}
+
+.boxRow-2>.selectBox>.selectConteudo {
+    max-width: 95.5%;
+}
+
+.boxRow-2>:nth-child(2)>.selectConteudo {
+    left: 15px;
+}
+
+/* .inputFile>input[type="file"]::-webkit-file-upload-button {
+    background-color: #333;
+    color: #FFF;
+    text-transform: uppercase;
+    text-align: center;
+    display: block;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.inputFile>input[type="file"]:not(::-webkit-file-upload-button) {
+    border: 1px solid blue;
+} */

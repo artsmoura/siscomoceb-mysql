@@ -1,0 +1,26 @@
+.eventBox .eventCard {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    overflow: auto;
+}
+
+.eventBox {}
+
+.eventBox>h2 {
+    margin-left: 16px;
+    margin-bottom: 0px;
+    color: rgba(130, 130, 130, 1);
+}
+
+.addEvent {
+    position: fixed;
+    bottom: 15px;
+    right: 28px;
+    z-index: 2;
+}
+
+.eventBox>h1>span {
+    border: 1px solid red;
+    text-transform: capitalize;
+}

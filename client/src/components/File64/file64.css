@@ -1,0 +1,77 @@
+.inputFileProfile {
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+}
+
+.inputFileProfile>img {
+    position: absolute;
+    top: 0;
+    border-radius: 50%;
+    width: 140px;
+    height: 140px;
+    object-fit: cover;
+    margin: 15px 0px 0px 50px;
+    box-shadow: 0px 2px 8px #00000048;
+}
+
+.inputFileProfile>svg:not(.label.inputFileProfile>svg) {
+    border: 1px solid silver;
+    font-size: 8.5em;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    margin: 15px 0px 0px 50px;
+}
+
+.inputFileProfile>input {
+    display: none;
+}
+
+.label.inputFileProfile {
+    position: absolute;
+    z-index: 9;
+    width: 30px;
+    height: 30px;
+    background-color: white;
+    left: 150px;
+    top: 115px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 1px 2px 8px #00000048;
+    cursor: pointer;
+}
+
+.label.inputFileProfile>svg {
+    font-size: 1.5em;
+}
+
+.label.inputFileProfile:hover {
+    background-color: rgb(218, 218, 218);
+}
+
+
+/* 
+SELETOR DE ARQUIVO ESTILO BOTÃO 
+*/
+
+.inputFileBtn {
+    border: 1px solid #ccc;
+    padding: 6px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 150px;
+    background-color: rgb(76, 106, 241);
+    color: white
+}
+
+.inputFileBtn>label {
+    border: 0;
+}
+
+.inputFileBtn>input {
+    display: none;
+}

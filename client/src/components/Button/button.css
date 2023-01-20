@@ -1,0 +1,92 @@
+.button {
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btnBlue {
+    border-radius: 5px;
+    background-color: rgb(76, 106, 241);
+    border: 0px;
+    color: white;
+    padding: 8px;
+    margin: 5px;
+}
+
+.btnBlue>span {
+    font-weight: 800;
+}
+
+.btnBlue>.button {
+    color: white;
+}
+
+.btnBlue:hover,
+.btnBlue>button:hover {
+    background-color: rgb(39, 77, 247);
+}
+
+.btnSilver {
+    border-radius: 5px;
+    background-color: rgb(188, 188, 189);
+    border: 0px;
+    padding: 8px;
+    margin: 5px;
+}
+
+.btnSilver>span {
+    font-weight: 800;
+}
+
+.btnSilver>.button {
+    color: white;
+}
+
+.btnSilver:hover,
+.btnSilver>button:hover {
+    background-color: rgb(94, 102, 116);
+    color: white;
+}
+
+/* --------> BOTÂO DA NAVBAR  */
+.navbarBtn {
+    width: fit-content;
+    height: 100%;
+    text-decoration: none;
+}
+
+.navbarBtn:hover {
+    background-color: rgb(230, 230, 230);
+    cursor: pointer;
+}
+
+/* --------> BOTÃO ADICIONAR */
+.addBtn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: rgb(76, 106, 241);
+}
+
+.addBtn>button {
+    display: flex;
+    justify-content: center;
+}
+
+.addBtn:hover {
+    background-color: rgb(39, 77, 247);
+    cursor: pointer
+}
+
+.dropdownBtn {
+    padding: 5px;
+}
+
+.dropdownBtn:hover {
+    background-color: rgb(230, 230, 230);
+}

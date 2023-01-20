@@ -1,0 +1,60 @@
+.cardBox {
+    width: 275px;
+    height: 339px;
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: 15px;
+    padding-bottom: 10px;
+    position: relative;
+    transition: 0.4s;
+}
+
+.cardBox:hover {
+    -webkit-box-shadow: -3px 13px 31px -12px rgba(0, 0, 0, 0.22);
+    -moz-box-shadow: -3px 13px 31px -12px rgba(0, 0, 0, 0.22);
+    box-shadow: -3px 13px 31px -12px rgba(0, 0, 0, 0.22);
+    cursor: pointer;
+}
+
+.cardInfo {
+    max-width: 235px;
+    max-height: 138px;
+    min-height: 138px;
+    margin-top: 153px;
+}
+
+.cardBox>.btnBlue {
+    margin-top: 15px;
+}
+
+.cardInfo>h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: rgba(0, 163, 229, 1);
+}
+
+.cardInfo>p {
+    font-size: 14px;
+    text-overflow: ellipsis;
+    white-space: wrap;
+    overflow: hidden;
+}
+
+.cardImg {
+    position: absolute;
+    width: 255px;
+    min-height: 143px;
+    border-radius: 10px;
+    background-position: 30% 20%;
+    background-size: cover;
+    margin-top: 10px;
+}
+
+.cardOption {
+    position: absolute;
+    right: 0;
+    top: 7px;
+}

@@ -1,0 +1,79 @@
+.selectBox {
+    width: 100%;
+    height: fit-content;
+    text-transform: capitalize;
+    margin: 15px 0px;
+    position: relative;
+}
+
+.selectBox .selectBtn {
+    padding: 10px;
+    display: flex;
+    align-items: flex;
+    align-items: center;
+    color: black;
+    border: 1px solid silver;
+    border-radius: 5px;
+    position: relative;
+    height: 24px;
+}
+
+.selectBox .selectBtn.true svg {
+    transform: rotate(-180deg);
+}
+
+.selectBox>.selectConteudo {
+    top: 100%;
+    background-color: white;
+    box-shadow: 3px 3px 10px 6px rgba(0, 0, 0, 0.06);
+    right: 0;
+    width: 100%;
+    margin-right: 10px;
+    border-radius: 0px 0px 10px 10px;
+    overflow: auto;
+    max-height: 200px;
+
+}
+
+.selectBox .selectConteudo .selectItem {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    align-content: center;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.selectBox .selectConteudo .selectItem:hover {
+    background-color: #cfcfcf;
+
+}
+
+.selectBox .selectConteudo .selectItem:hover:last-child {
+    border-radius: 0px 0px 10px 10px;
+}
+
+.selectBtn>.labelFloating,
+.selectBtn.false>.labelFloating,
+.selectBtn.true>.labelFloating {
+    top: -23px;
+    left: 10px;
+}
+
+
+.selectBtn.false>span:not(.labelFloating),
+.selectBtn.true>span:not(.labelFloating) {
+    position: absolute;
+}
+
+.selectBtn.false>svg,
+.selectBtn.true>svg {
+    position: absolute;
+    right: 10px;
+}
+
+.selectConteudo {
+    position: absolute;
+    left: 0;
+    z-index: 9;
+}
