@@ -1,5 +1,6 @@
 import { redirect } from 'react-router-dom';
 import * as api from '../../../api/index.js';
+import { toast } from 'react-toastify';
 
 export const EVENTS_LOAD_SUCCESS = "EVENTS_LOAD_SUCCESS";
 export const EVENTS_LOAD_ERROR = "EVENTS_LOAD_ERROR";
@@ -18,11 +19,13 @@ export const listEvents = () => async (dispatch) => {
             type: EVENTS_LOAD_SUCCESS,
             payload: data
         });
+        toast.success("Eventos Carregados");
     } catch (error) {
         dispatch(({
             type: EVENTS_LOAD_ERROR,
             payload: error.message
         }));
+        toast.error("Erro ao carregar eventos");
     }
 };
 

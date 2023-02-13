@@ -12,6 +12,11 @@ const Card = (props) => {
 
     useOutsideClick(ref, () => setIsActive(false));
 
+    const handleOptionDropdown = (e) => {
+        e.stopPropagation(); //this prevent father div oclick action is execute when click on optionBtn
+        setIsActive(!isActive);
+    };
+
     return (
         <div className="cardBox" key={props.key && props.key} onClick={props.clickCard}>
             {props.image ?
@@ -32,7 +37,7 @@ const Card = (props) => {
                             name="option"
                             className='optionBtn'
                             icon={<BiDotsVerticalRounded size={"2em"} />}
-                            onClick={() => setIsActive(!isActive)}
+                            onClick={(e) => handleOptionDropdown(e)}
                         />
                     </div>
                     : null
