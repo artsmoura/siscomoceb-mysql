@@ -20,7 +20,7 @@ const Auth = () => {
         if (isSignup) {
             dispatch(register(user, navigate));
         } else {
-            dispatch(login(user, navigate));
+            dispatch(login({ txt_usuario: user.email, txt_senha: user.password }, navigate));
         }
     };
 

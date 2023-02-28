@@ -32,7 +32,6 @@ const Selectbox = (props) => {
     };
 
     const handleActive = () => {
-        console.log('clicou??');
         setIsActive(!isActive);
         props.actionList && dispatch(props.actionList);
     };

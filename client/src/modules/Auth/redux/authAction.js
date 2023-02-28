@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { toast } from 'react-toastify';
 import * as api from '../../../api/index.js';
 
 export const UPDATE_CONTENT_AUTH = "UPDATE_CONTENT_AUTH";
@@ -8,10 +9,19 @@ export const LOGOUT = "LOGOUT";
 export const LIST_STATE_SUCCESS = "LIST_STATE_SUCCESS";
 export const LIST_CITY_SUCCESS = "LIST_CITY_SUCCESS";
 export const CONSULT_CEP_SUCCESS = "CONSULT_CEP_SUCCESS";
+export const GET_USER_DATA_SUCCESS = "GET_USER_DATA_SUCCESS";
+export const UPDATE_CONTENT_USER_DATA = "UPDATE_CONTENT_USER_DATA";
 
 export const updateContentAuth = e => async (dispatch) => {
     dispatch({
         type: UPDATE_CONTENT_AUTH,
+        payload: e
+    });
+};
+
+export const updateUserData = e => async (dispatch) => {
+    dispatch({
+        type: UPDATE_CONTENT_USER_DATA,
         payload: e
     });
 };
@@ -92,11 +102,25 @@ const consultCEPSuccess = (cep) => async (dispatch) => {
 };
 
 export const consultCEP = (cep) => async (dispatch) => {
+    console.log(cep);
     const cepClear = cep.replace(/\D/g, '');
     try {
         const { data } = await axios.get(`https://brasilapi.com.br/api/cep/v2/${cepClear}`);
         dispatch(consultCEPSuccess(data));
     } catch (error) {
         console.log(error.message);
+    }
+};
+
+export const getUser = (id) => async (dispatch) => {
+    try {
+        const { data } = await api.getUser(id);
+        dispatch({
+            type: GET_USER_DATA_SUCCESS,
+            payload: data[0]
+        });
+        toast.success('Dados Carregados');
+    } catch (error) {
+        toast.error(error.response.data);
     }
 };

@@ -48,12 +48,12 @@ const EventPage = () => {
         }
     };
 
-    const name = user.name ? user.name[0].toUpperCase() + user.name.substring(1).toLowerCase() : '';
+    const name = user.txt_nome_completo.split(' ');
 
     return (
         <div className='eventBox'>
             <h1>
-                {user.gender === 'feminino' ? "Bem vinda, " : "Bem vindo, "}{name}
+                {user.bln_sexo === 0 ? "Bem vinda, " : "Bem vindo, "}{name[0]}
             </h1>
             <h2>Próximos Eventos</h2>
             <div className='eventCard'>

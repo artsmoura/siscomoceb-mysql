@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../../components/Button/button';
 import Input from '../../../components/Input/input';
 import Selectbox from '../../../components/Selectbox/selectbox';
-import { consultCEP, listCity, listState, updateContentAuth } from '../redux/authAction';
+import { consultCEP, getUser, listCity, listState, updateUserData } from '../redux/authAction';
 import File64 from '../../../components/File64/file64';
 import { BiCamera } from 'react-icons/bi';
 import './user.css';
@@ -12,11 +12,15 @@ import './user.css';
 const UserProfile = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const authState = useSelector((state) => state.authState);
-    const user = useSelector((state) => state.authState.user);
+    const authState = useSelector((state) => state.authState.user);
+    const user = useSelector((state) => state.authState.userData);
+
+    useEffect(() => {
+        dispatch(getUser(authState.cod_usuario));
+    }, []);
 
     const handleSelect = (e) => {
-        dispatch(updateContentAuth({
+        dispatch(updateUserData({
             ...e,
             value: e.target.value.value
         }));
@@ -24,10 +28,12 @@ const UserProfile = () => {
 
     const option = [
         {
+            id: 1,
             name: 'Masculino',
             value: 'masculino'
         },
         {
+            id: 0,
             name: 'Feminino',
             value: 'feminino'
         }
@@ -52,69 +58,57 @@ const UserProfile = () => {
         }
     ];
 
-    console.log(authState.states.name);
-
     return (
         <div className="container">
             <div className="boxForm">
                 <h2>Editar Perfil</h2>
                 <form>
-                    <div className='boxRow-2'>
-                        <Input
-                            type="text"
-                            name="name"
-                            label="Nome"
-                            onChange={(e) => dispatch(updateContentAuth(e))}
-                            value={user.name}
-                            className="formInput"
-                        />
-                        <Input
-                            type="text"
-                            name="sobrenome"
-                            label="Sobrenome"
-                            onChange={(e) => dispatch(updateContentAuth(e))}
-                            value={user.sobrenome}
-                            className="formInput"
-                        />
-                    </div>
+                    <Input
+                        type="text"
+                        name="txt_nome_completo"
+                        label="Nome Completo"
+                        onChange={(e) => dispatch(updateUserData(e))}
+                        value={user.txt_nome_completo}
+                        className="formInput"
+                    />
                     <Input
                         type="text"
                         name="email"
                         label="Email"
-                        onChange={(e) => dispatch(updateContentAuth(e))}
-                        value={user.email}
+                        onChange={(e) => dispatch(updateUserData(e))}
+                        value={authState.txt_email_usuario}
                         className="formInput"
                     />
                     <Input
                         type="text"
-                        name="cpf"
+                        name="txt_cpf"
                         label="CPF"
-                        onChange={(e) => dispatch(updateContentAuth(e))}
-                        value={user.cpf}
+                        onChange={(e) => dispatch(updateUserData(e))}
+                        value={user.txt_cpf}
                         className="formInput"
                     />
                     <Input
                         type="date"
-                        name="dateNascimento"
+                        name="dte_nascimento"
                         label="Data Nascimento"
-                        onChange={(e) => dispatch(updateContentAuth(e))}
-                        value={user.dateNascimento}
+                        onChange={(e) => dispatch(updateUserData(e))}
+                        value={user.dte_nascimento}
                         className="formInput"
                     />
                     <div className='boxRow-2'>
                         <Selectbox
-                            selected={user.sexo}
+                            selected={user.bln_sexo}
                             action={handleSelect}
-                            name="sexo"
+                            name="bln_sexo"
                             label="Sexo"
                             options={{
                                 option: option
                             }}
                         />
                         <Selectbox
-                            selected={user.civilState}
+                            selected={user.dsc_estado_civil}
                             action={handleSelect}
-                            name="civilState"
+                            name="dsc_estado_civil"
                             label="Estado Civil"
                             options={{
                                 option: option2
@@ -123,17 +117,17 @@ const UserProfile = () => {
                     </div>
                     <Input
                         type="text"
-                        name="phone"
+                        name="txt_celular"
                         label="Celular"
-                        onChange={(e) => dispatch(updateContentAuth(e))}
-                        value={user.phone}
+                        onChange={(e) => dispatch(updateUserData(e))}
+                        value={user.txt_celular}
                         className="formInput"
                     />
                     <Input
                         type="text"
                         name="cep"
                         label="CEP"
-                        onChange={(e) => dispatch(updateContentAuth(e))}
+                        onChange={(e) => dispatch(updateUserData(e))}
                         value={user.cep}
                         className="formInput"
                         inputOut={() => dispatch(consultCEP(user.cep))}
@@ -142,7 +136,7 @@ const UserProfile = () => {
                         type="text"
                         name="address"
                         label="Endereço"
-                        onChange={(e) => dispatch(updateContentAuth(e))}
+                        onChange={(e) => dispatch(updateUserData(e))}
                         value={user.address}
                         className="formInput"
                     />
@@ -151,7 +145,7 @@ const UserProfile = () => {
                             type="text"
                             name="city"
                             label="Cidade"
-                            onChange={(e) => dispatch(updateContentAuth(e))}
+                            onChange={(e) => dispatch(updateUserData(e))}
                             value={user.city}
                             className="formInput"
                         />
@@ -159,7 +153,7 @@ const UserProfile = () => {
                             type="text"
                             name="state"
                             label="Estado"
-                            onChange={(e) => dispatch(updateContentAuth(e))}
+                            onChange={(e) => dispatch(updateUserData(e))}
                             value={user.state}
                             className="formInput"
                         />
@@ -168,7 +162,7 @@ const UserProfile = () => {
                     <File64
                         label={<BiCamera />}
                         className={'inputFileProfile'}
-                        action={updateContentAuth}
+                        action={updateUserData}
                         alt={'imagem perfil'}
                         text={"Alterar Imagem Perfil"}
                     />

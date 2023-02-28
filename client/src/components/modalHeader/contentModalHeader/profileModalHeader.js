@@ -20,8 +20,8 @@ function ProfileModalHeader(props) {
             <div className='profileImg'>
                 <img src="img/avatar.png" alt='perfil'></img>
             </div>
-            <p>{user.name.toLowerCase()} {user.sobrenome.toLowerCase()}</p>
-            <p>{user.email}</p>
+            <p>{user.txt_nome_completo.toLowerCase()}</p>
+            <p>{user.txt_email_usuario}</p>
             <Button
                 name="btnEditProfile"
                 className="btnBlue"
