@@ -9,6 +9,7 @@ import { deleteEvent, editEvent, listEvents, openEvent } from './redux/eventsAct
 import Modal from '../../components/Modal/modal';
 import { setTypeModal } from '../../reduxLayout/layoutAction';
 import { adjustDate } from '../../utils';
+import { Box, Center, Flex, Heading, SimpleGrid, Text } from '@chakra-ui/react';
 
 const EventPage = () => {
 
@@ -28,7 +29,7 @@ const EventPage = () => {
 
     useEffect(() => {
         dispatch(listEvents());
-    }, [dispatch]);
+    }, []);
 
     const dropdownActions = [{
         name: "Deletar",
@@ -51,12 +52,13 @@ const EventPage = () => {
     const name = user.txt_nome_completo.split(' ');
 
     return (
-        <div className='eventBox'>
-            <h1>
+        <Flex flexDirection={'column'} gap='2' paddingTop='50px'>
+            <Heading>
                 {user.bln_sexo === 0 ? "Bem vinda, " : "Bem vindo, "}{name[0]}
-            </h1>
-            <h2>Próximos Eventos</h2>
-            <div className='eventCard'>
+            </Heading>
+            <Text fontSize='xl'>Próximos Eventos</Text>
+            <Center flexWrap={'wrap'}>
+
                 {
                     events.map((event) => (
                         <Card
@@ -72,7 +74,7 @@ const EventPage = () => {
                         />
                     ))
                 }
-            </div>
+            </Center>
             <div className='addEvent'>
                 <Button
                     name="addEvent"
@@ -80,9 +82,9 @@ const EventPage = () => {
                     icon={<BiPlus color='white' size={"2.5em"} />}
                     onClick={goCreateEvent}
                 />
-            </div>
+            </div>;
             {modal(modalType)}
-        </div>
+        </Flex >
     );
 };
 

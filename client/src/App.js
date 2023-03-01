@@ -11,30 +11,27 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ProtectedRoute from "./protectedRoute";
 import { useSelector } from "react-redux";
+import { Box, Center, Flex, VStack } from "@chakra-ui/react";
 
 const App = () => {
     const user = useSelector((state) => state.authState.user);
     const screenSize = useWindowDimensions();
 
     return (
-        <>
-            <div className="container">
-                {Object.keys(user).includes('cod_usuario') ? <Navbar screenSize={screenSize.width} /> : null}
-                <div className="pageBox">
-                    <Routes>
-                        <Route path="login" element={<Auth />} />
-                        <Route path="/" element={<ProtectedRoute />}>
-                            <Route path="/" element={<EventPage />} />
-                        </Route>
-                        <Route path="/criarevento" element={<ProtectedRoute />}>
-                            <Route path="/criarevento" element={<FormEvent />} />
-                        </Route>
-                        <Route path="/perfil" element={<ProtectedRoute />}>
-                            <Route path="/perfil" element={<UserProfile />} />
-                        </Route>
-                    </Routes>
-                </div>
-            </div>
+        <VStack bg={'rgb(240, 240, 240)'}>
+            {Object.keys(user).includes('cod_usuario') ? <Navbar screenSize={screenSize.width} /> : null}
+            <Routes>
+                <Route path="login" element={<Auth />} />
+                <Route path="/" element={<ProtectedRoute />}>
+                    <Route path="/" element={<EventPage />} />
+                </Route>
+                <Route path="/criarevento" element={<ProtectedRoute />}>
+                    <Route path="/criarevento" element={<FormEvent />} />
+                </Route>
+                <Route path="/perfil" element={<ProtectedRoute />}>
+                    <Route path="/perfil" element={<UserProfile />} />
+                </Route>
+            </Routes>
             <ToastContainer
                 position="top-right"
                 autoClose={3000}
@@ -47,7 +44,7 @@ const App = () => {
                 pauseOnHover
                 theme="light"
             />
-        </>
+        </VStack>
     );
 };
 

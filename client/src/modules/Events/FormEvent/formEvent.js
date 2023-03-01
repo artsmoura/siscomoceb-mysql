@@ -8,6 +8,7 @@ import { clearFormInput, createEvent, updateAccommodation, updateContentEvent } 
 import Checkbox from "../../../components/Checkbox/checkbox";
 import { useNavigate } from "react-router-dom";
 import File64 from "../../../components/File64/file64";
+import { Box, VStack } from "@chakra-ui/react";
 
 const FormEvent = () => {
 
@@ -35,8 +36,8 @@ const FormEvent = () => {
     };
 
     return (
-        <div className="container">
-            <div className="boxForm">
+        <VStack p={5}>
+            <Box>
                 <h2>Criar Evento</h2>
                 <form>
                     <Input
@@ -158,8 +159,8 @@ const FormEvent = () => {
                         onClick={handleSubmit}
                     />
                 </div>
-            </div>
-        </div>
+            </Box>
+        </VStack>
     );
 };
 
