@@ -52,17 +52,16 @@ const EventPage = () => {
     const name = user.txt_nome_completo.split(' ');
 
     return (
-        <Flex flexDirection={'column'} gap='2' paddingTop='50px'>
+        <Flex flexDirection={'column'} gap='2' maxW={'1272px'}>
             <Heading>
                 {user.bln_sexo === 0 ? "Bem vinda, " : "Bem vindo, "}{name[0]}
             </Heading>
             <Text fontSize='xl'>Próximos Eventos</Text>
             <Center flexWrap={'wrap'}>
-
                 {
                     events.map((event) => (
                         <Card
-                            key={event.id}
+                            keyUnique={event.idEvento}
                             title={event.nomeEvento}
                             image={event.image}
                             data={adjustDate(event.dataHoraInicio)}

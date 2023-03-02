@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { store } from './Store';
 import App from './App';
@@ -7,7 +7,10 @@ import { BrowserRouter } from 'react-router-dom';
 import { ChakraProvider } from '@chakra-ui/react';
 import AppTheme from './theme';
 
-ReactDOM.render(
+const container = document.getElementById('root');
+const root = createRoot(container);
+
+root.render(
     <ChakraProvider theme={AppTheme}>
         <Provider store={store}>
             <BrowserRouter>
@@ -15,6 +18,5 @@ ReactDOM.render(
             </BrowserRouter>
         </Provider>
     </ChakraProvider>,
-    document.getElementById('root')
 );
 
