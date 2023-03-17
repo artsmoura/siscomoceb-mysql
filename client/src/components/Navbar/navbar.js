@@ -132,6 +132,7 @@ const Navbar = (props) => {
                         spacing={4}
                         maxW={'1272px'}
                         mt='4px'
+                        position={'relative'}
                     >
                         <HStack spacing={4}>
                             <Box>

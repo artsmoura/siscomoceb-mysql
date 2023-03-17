@@ -40,7 +40,13 @@ export function useOutsideClick(ref, handler) {
     }, [ref, handler]);
 };
 
-export const adjustDate = (d) => {
+export const adjustDate = (d, type) => {
     const date = new Date(d);
-    return `${(date.getDate() < 10 ? '0' + date.getDate() : date.getDate())}/${((date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1))}/${date.getFullYear()} - ${(date.getHours() < 10 ? '0' : 0) + date.getHours()}:${(date.getMinutes() < 10 ? '0' : '') + date.getMinutes()}`;
+
+    if (type === 'dte_nascimento') {
+        return `${date.getFullYear()}-${((date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1))}-${(date.getDate() < 10 ? '0' + date.getDate() : date.getDate())}`;
+    } else {
+        return `${date.getFullYear()}-${((date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1))}-${(date.getDate() < 10 ? '0' + date.getDate() : date.getDate())}T${(date.getHours() < 10 ? '0' : 0) + date.getHours()}:${(date.getMinutes() < 10 ? '0' : '') + date.getMinutes()}`;
+    }
+
 };

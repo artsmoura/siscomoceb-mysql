@@ -10,6 +10,7 @@
     max-width: calc(-24px + 100vw);
     margin-right: 5px;
     border-radius: 10px;
+    top: 40px
 }
 
 .modalProfile {
