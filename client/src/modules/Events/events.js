@@ -53,15 +53,15 @@ const EventPage = () => {
 
     return (
         <Flex flexDirection={'column'} gap='2' maxW={'1272px'}>
-            <Heading>
+            <Heading ml='1rem'>
                 {user.bln_sexo === 0 ? "Bem vinda, " : "Bem vindo, "}{name[0]}
             </Heading>
-            <Text fontSize='xl'>Próximos Eventos</Text>
+            <Text fontSize='xl' ml='1.5rem'>Próximos Eventos</Text>
             <Center flexWrap={'wrap'}>
                 {
                     events.map((event) => (
                         <Card
-                            keyUnique={event.idEvento}
+                            key={event.idEvento}
                             title={event.nomeEvento}
                             image={event.image}
                             data={adjustDate(event.dataHoraInicio)}
@@ -81,7 +81,7 @@ const EventPage = () => {
                     icon={<BiPlus color='white' size={"2.5em"} />}
                     onClick={goCreateEvent}
                 />
-            </div>;
+            </div>
             {modal(modalType)}
         </Flex >
     );

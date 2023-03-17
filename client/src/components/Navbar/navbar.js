@@ -123,24 +123,18 @@ const Navbar = (props) => {
     ];
 
     return (
-        <>
+        <Box w='100%' h='48px' bg='white' boxShadow='0px 3px 6px #00000029' align='center'>
             {
                 props.screenSize >= 974 ?
                     <Stack
-                        align='center'
                         direction='row'
                         justify={'space-between'}
-                        w='100%'
-                        h='48px'
                         spacing={4}
-                        bg='white'
-                        boxShadow='0px 3px 6px #00000029'
-                        paddingInlineStart={'18.5rem'}
-                        paddingInlineEnd={'18.5rem'}
+                        maxW={'1272px'}
+                        mt='4px'
                     >
                         <HStack spacing={4}>
-
-                            <Box pl={'15px'}>
+                            <Box>
                                 <NavLink to={'/'}>
                                     <Image
                                         src='img/comocebLogo.png'
@@ -180,14 +174,13 @@ const Navbar = (props) => {
                                 }}
                                 borderRadius='50%'
                                 padding='0!important'
-                                mr='35px'
                                 onClick={() => openNavModal('modalProfile')}
                             />
                         </Box>
                         <ModalHeader ref={ref} type={modalType} user={user} />
                     </Stack >
                     :
-                    <Stack align='flex-start' w='100%' h='40px' bg='white' boxShadow='0px 3px 6px #00000029'>
+                    <Stack align='flex-start' bg='white'>
                         <Button
                             ref={ref}
                             colorScheme='teal'
@@ -221,7 +214,7 @@ const Navbar = (props) => {
                         </Drawer>
                     </Stack>
             }
-        </>
+        </Box >
     );
 };
 

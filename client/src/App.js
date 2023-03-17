@@ -18,7 +18,7 @@ const App = () => {
     const screenSize = useWindowDimensions();
 
     return (
-        <VStack bg={'rgb(240, 240, 240)'}>
+        <VStack bg={'rgb(240, 240, 240)'} minH='100vh'>
             {Object.keys(user).includes('cod_usuario') ? <Navbar screenSize={screenSize.width} /> : null}
             <Routes>
                 <Route path="login" element={<Auth />} />
@@ -26,7 +26,7 @@ const App = () => {
                     <Route path="/" element={<EventPage />} />
                 </Route>
                 <Route path="/criarevento" element={<ProtectedRoute />}>
-                    <Route path="/criarevento" element={<FormEvent />} />
+                    <Route path="/criarevento" element={<FormEvent screenSize={screenSize.width} />} />
                 </Route>
                 <Route path="/perfil" element={<ProtectedRoute />}>
                     <Route path="/perfil" element={<UserProfile />} />

@@ -10,7 +10,7 @@ import image from '../../retiro1.jpg';
 const Cards = (props) => {
 
     return (
-        <LinkBox key={props.keyUnique} as='article' textDecoration='none' m={2} _hover={{ boxShadow: '-3px 13px 31px -12px rgba(0, 0, 0, 0.22)' }}>
+        <LinkBox as='article' textDecoration='none' m={2} _hover={{ boxShadow: '-3px 13px 31px -12px rgba(0, 0, 0, 0.22)' }}>
             <LinkOverlay href='#'>
                 <Card minW={295} maxW={295} minH={500} maxH={500}>
                     <CardBody>

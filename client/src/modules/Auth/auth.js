@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../../components/Button/button';
-import Input from '../../components/Input/input';
 import './auth.css';
 import { authUser, clearAuthFields, login, updateContentAuth, register } from './redux/authAction';
 import { GoogleLogin } from 'react-google-login';
@@ -60,7 +59,7 @@ const Auth = () => {
                 <form>
                     {isSignup && (
                         <>
-                            <Input
+                            {/*  <Input
                                 type="text"
                                 name="name"
                                 label="Nome"
@@ -95,10 +94,10 @@ const Auth = () => {
                                 value={user.dateNascimento}
                                 isRequired={true}
                                 className="formInput"
-                            />
+                            /> */}
                         </>
                     )}
-                    <Input
+                    {/* <Input
                         type="text"
                         name="email"
                         label="Email"
@@ -115,10 +114,10 @@ const Auth = () => {
                         value={user.password}
                         isRequired={true}
                         className="formInput"
-                    />
+                    /> */}
                     {isSignup && (
                         <>
-                            <Input
+                            {/*  <Input
                                 type="password"
                                 name="passwordConfirm"
                                 label="Confirmar Senha"
@@ -126,7 +125,7 @@ const Auth = () => {
                                 value={user.passwordConfirm}
                                 isRequired={true}
                                 className="formInput"
-                            />
+                            /> */}
                         </>
                     )}
                 </form>

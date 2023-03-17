@@ -2,12 +2,13 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../../components/Button/button';
-import Input from '../../../components/Input/input';
 import Selectbox from '../../../components/Selectbox/selectbox';
 import { consultCEP, getUser, listCity, listState, updateUserData } from '../redux/authAction';
 import File64 from '../../../components/File64/file64';
 import { BiCamera } from 'react-icons/bi';
 import './user.css';
+import { Box, FormControl, FormErrorMessage, FormLabel, HStack, Input, Stack } from '@chakra-ui/react';
+import { Field, Form, Formik } from 'formik';
 
 const UserProfile = () => {
     const dispatch = useDispatch();
@@ -58,8 +59,114 @@ const UserProfile = () => {
         }
     ];
 
+    const initialUserValues = {
+        txt_nome_completo: user.txt_nome_completo ? user.txt_nome_completo : '',
+        email: user.email ? user.email : '',
+        txt_cpf: user.txt_cpf ? user.txt_cpf : '',
+        dte_nascimento: user.dte_nascimento ? user.dte_nascimento : '',
+        txt_celular: user.txt_celular ? user.txt_celular : '',
+        cep: user.cep ? user.cep : ''
+    };
+
     return (
-        <div className="container">
+        <HStack bg={'white'} w={'1100px'}>
+            <Box
+                w='180px'
+                h='180px'
+                border={'1px solid red'}
+                position={'relative'}
+            >
+                <File64
+                    label={<BiCamera />}
+                    className={'inputFileProfile'}
+                    action={updateUserData}
+                    alt={'imagem perfil'}
+                    text={"Alterar Imagem Perfil"}
+                />
+            </Box>
+
+            <Formik
+                initialValues={initialUserValues}
+                validationSchema={''}
+                onSubmit={(values, action) => {
+                    action.resetForm();
+
+                }}
+            >
+                {({ handleSubmit, errors, touched, value }) => (
+                    <Stack as={Form} w={'80%'} onSubmit={handleSubmit}>
+                        <Box p={3}>
+                            <FormControl variant="floating" isRequired isInvalid={!!errors.tema && touched.tema}>
+                                <Field
+                                    as={Input}
+                                    placeholder=" "
+                                    name='txt_nome_completo'
+                                />
+                                <FormLabel>Nome Completo</FormLabel>
+                                <FormErrorMessage>{errors.tema}</FormErrorMessage>
+                            </FormControl>
+                        </Box>
+
+                        <Box p={3}>
+                            <FormControl variant="floating" isRequired isInvalid={!!errors.email && touched.email}>
+                                <Field
+                                    as={Input}
+                                    placeholder=" "
+                                    name='email'
+                                />
+                                <FormLabel>Email</FormLabel>
+                                <FormErrorMessage>{errors.email}</FormErrorMessage>
+                            </FormControl>
+                        </Box>
+
+                        <Box p={3}>
+                            <FormControl variant="floating" isRequired isInvalid={!!errors.txt_cpf && touched.txt_cpf}>
+                                <Field
+                                    as={Input}
+                                    placeholder=" "
+                                    name='txt_cpf'
+                                />
+                                <FormLabel>CPF</FormLabel>
+                                <FormErrorMessage>{errors.txt_cpf}</FormErrorMessage>
+                            </FormControl>
+                        </Box>
+
+                        <Box p={3}>
+                            <FormControl variant="floating" isRequired isInvalid={!!errors.dte_nascimento && touched.dte_nascimento}>
+                                <Field
+                                    as={Input}
+                                    placeholder=" "
+                                    name='dte_nascimento'
+                                />
+                                <FormLabel>Data Nascimento</FormLabel>
+                                <FormErrorMessage>{errors.dte_nascimento}</FormErrorMessage>
+                            </FormControl>
+                        </Box>
+
+                        <Box p={3}>
+                            <FormControl variant="floating" isRequired isInvalid={!!errors.txt_celular && touched.txt_celular}>
+                                <Field
+                                    as={Input}
+                                    placeholder=" "
+                                    name='txt_celular'
+                                />
+                                <FormLabel>Celular</FormLabel>
+                                <FormErrorMessage>{errors.txt_celular}</FormErrorMessage>
+                            </FormControl>
+                        </Box>
+                    </Stack>
+                )}
+            </Formik>
+        </HStack>
+    );
+};
+
+export default UserProfile;
+
+
+/* 
+
+<div className="container">
             <div className="boxForm">
                 <h2>Editar Perfil</h2>
                 <form>
@@ -115,7 +222,7 @@ const UserProfile = () => {
                             }}
                         />
                     </div>
-                    <Input
+                      <Input
                         type="text"
                         name="txt_celular"
                         label="Celular"
@@ -139,9 +246,9 @@ const UserProfile = () => {
                         onChange={(e) => dispatch(updateUserData(e))}
                         value={user.address}
                         className="formInput"
-                    />
+                    /> 
                     <div className='boxRow-2'>
-                        <Input
+                        {/*  <Input
                             type="text"
                             name="city"
                             label="Cidade"
@@ -185,7 +292,4 @@ const UserProfile = () => {
                 </div>
             </div>
         </div>
-    );
-};
-
-export default UserProfile;
+*/
