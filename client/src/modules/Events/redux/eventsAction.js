@@ -11,8 +11,17 @@ export const UPDATE_ACCOMMODATION = "UPDATE_ACCOMMODATION";
 export const CLEAR_FORM_INPUT = "CLEAR_FORM_INPUT";
 export const EVENT_LOAD_SUCCESS = "EVENTS_LOAD_SUCCESS";
 export const EVENT_LOAD_ERROR = "EVENT_LOAD_ERROR";
+export const LOADING_EVENTS = "LOADING_EVENTS";
+
+const setLoading = (status) => (dispatch) => {
+    dispatch({
+        type: LOADING_EVENTS,
+        payload: status
+    });
+};
 
 export const listEvents = () => async (dispatch) => {
+    dispatch(setLoading(true));
     try {
         const { data } = await api.getEvents();
         dispatch({
@@ -20,6 +29,7 @@ export const listEvents = () => async (dispatch) => {
             payload: data
         });
         toast.success("Eventos Carregados");
+        dispatch(setLoading(false));
     } catch (error) {
         dispatch(({
             type: EVENTS_LOAD_ERROR,

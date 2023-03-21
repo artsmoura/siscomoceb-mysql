@@ -1,4 +1,4 @@
-import { CLEAR_FORM_INPUT, EVENTS_CREATE_SUCCESS, EVENTS_LOAD_SUCCESS, EVENT_LOAD_SUCCESS, UPDATE_ACCOMMODATION, UPDATE_CONTENT_EVENT } from './eventsAction';
+import { CLEAR_FORM_INPUT, EVENTS_CREATE_SUCCESS, EVENTS_LOAD_SUCCESS, EVENT_LOAD_SUCCESS, LOADING_EVENTS, UPDATE_ACCOMMODATION, UPDATE_CONTENT_EVENT } from './eventsAction';
 
 const eventoInicialState = {
     nomeEvento: '',
@@ -19,6 +19,7 @@ const eventoInicialState = {
 const inicialState = {
     events: [],
     event: eventoInicialState,
+    loading: false
 };
 
 export default (state = inicialState, action) => {
@@ -83,6 +84,11 @@ export default (state = inicialState, action) => {
             };
         case CLEAR_FORM_INPUT:
             return inicialState;
+        case LOADING_EVENTS:
+            return {
+                ...state,
+                loading: action.payload
+            };
         default:
             return state;
     }

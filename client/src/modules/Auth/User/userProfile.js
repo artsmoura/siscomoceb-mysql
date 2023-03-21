@@ -181,7 +181,7 @@ const UserProfile = () => {
                             <FormControl variant="floating" isRequired isInvalid={!!errors.txt_celular && touched.txt_celular}>
                                 <Field
                                     as={Select}
-                                    placeholder={optionGender.find(value => value.id === values.bln_sexo).foo}
+                                    placeholder={optionGender.find(value => value.id === values.bln_sexo)}
                                     name='bln_sexo'
                                 >
                                     {optionGender.map(gender => (
