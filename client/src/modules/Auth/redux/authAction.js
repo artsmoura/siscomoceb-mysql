@@ -26,7 +26,7 @@ export const updateUserData = e => async (dispatch) => {
     });
 };
 
-export const authUser = (user) => async (dispatch) => {
+export const authUser = (user) => (dispatch) => {
     dispatch({
         type: AUTH_USER,
         payload: user

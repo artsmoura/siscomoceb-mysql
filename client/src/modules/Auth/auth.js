@@ -5,6 +5,10 @@ import Button from '../../components/Button/button';
 import './auth.css';
 import { authUser, clearAuthFields, login, updateContentAuth, register } from './redux/authAction';
 import { GoogleLogin } from 'react-google-login';
+import { Box, FormControl, FormLabel, IconButton, Input, InputGroup, InputRightElement, Popover, Stack, Switch, PopoverTrigger, PopoverContent, PopoverArrow, PopoverCloseButton, PopoverHeader, PopoverBody, Flex } from '@chakra-ui/react';
+import { Field, Form, Formik } from "formik";
+import { IoIosEye, IoIosEyeOff } from 'react-icons/io';
+import { BsFillQuestionCircleFill } from 'react-icons/bs';
 
 const Auth = () => {
 
@@ -13,13 +17,14 @@ const Auth = () => {
     const navigate = useNavigate();
 
     const [isSignup, setIsSignup] = useState(false);
+    const [showPassword, setShowPassword] = useState(false)
+    const seePassword = () => setShowPassword(!showPassword)
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const submit = (value) => {
         if (isSignup) {
             dispatch(register(user, navigate));
         } else {
-            dispatch(login({ txt_usuario: user.email, txt_senha: user.password }, navigate));
+            dispatch(login({ txt_usuario: value.email, txt_senha: value.password }, navigate));
         }
     };
 
@@ -43,6 +48,22 @@ const Auth = () => {
         dispatch(clearAuthFields());
     };
 
+    const initialValues = isSignup ? {
+        tema: '',
+        localEvento: '',
+        descricaoEvento: '',
+        programacao: '',
+        dataHoraInicio: '',
+        dataHoraFim: '',
+        dataHoraInicioInscricao: '',
+        dataHoraFimInscricao: ''
+    } : {
+        email: '',
+        password: ''
+    };
+
+    console.log(isSignup)
+
     return (
         <div className='loginBox'>
             <div className={`boxForm${isSignup === true ? '-signup' : '-login'}`}>
@@ -56,86 +77,118 @@ const Auth = () => {
                     )
                 }
 
-                <form>
-                    {isSignup && (
-                        <>
-                            {/*  <Input
-                                type="text"
-                                name="name"
-                                label="Nome"
-                                onChange={(e) => dispatch(updateContentAuth(e))}
-                                value={user.name}
-                                isRequired={true}
-                                className="formInput"
-                            />
-                            <Input
-                                type="text"
-                                name="sobrenome"
-                                label="Sobrenome"
-                                onChange={(e) => dispatch(updateContentAuth(e))}
-                                value={user.sobrenome}
-                                isRequired={true}
-                                className="formInput"
-                            />
-                            <Input
-                                type="text"
-                                name="cpf"
-                                label="CPF"
-                                onChange={(e) => dispatch(updateContentAuth(e))}
-                                value={user.cpf}
-                                isRequired={true}
-                                className="formInput"
-                            />
-                            <Input
-                                type="date"
-                                name="dateNascimento"
-                                label="Data Nascimento"
-                                onChange={(e) => dispatch(updateContentAuth(e))}
-                                value={user.dateNascimento}
-                                isRequired={true}
-                                className="formInput"
-                            /> */}
-                        </>
+                <Formik
+                    initialValues={initialValues}
+                    onSubmit={(values, action) => {
+                        action.resetForm();
+                        dispatch(submit(values));
+                    }}
+                >
+                    {({ handleSubmit, errors, touched }) => (
+                        <Stack as={Form} onSubmit={handleSubmit}>
+                            {isSignup === false ?
+                                <>
+                                    <Box p={3}>
+                                        <FormControl variant="floating" isRequired>
+                                            <Field
+                                                as={Input}
+                                                placeholder=" "
+                                                name='email'
+                                            />
+                                            <FormLabel>Email</FormLabel>
+                                        </FormControl>
+                                    </Box>
+
+                                    <Box p={3}>
+                                        <FormControl variant="floating" isRequired>
+                                            <InputGroup size='md'>
+                                                <Field
+                                                    as={Input}
+                                                    placeholder=" "
+                                                    name='password'
+                                                    type={showPassword ? 'text' : 'password'}
+                                                />
+                                                <FormLabel>Senha</FormLabel>
+                                                <InputRightElement>
+                                                    <IconButton
+                                                        aria-label='Mostar Senha'
+                                                        icon={showPassword ? <IoIosEyeOff /> : <IoIosEye />}
+                                                        onClick={seePassword}
+                                                    />
+                                                </InputRightElement>
+                                            </InputGroup>
+                                        </FormControl>
+                                    </Box>
+                                    <Button
+                                        type="submit"
+                                        name="btnForm"
+                                        className="btnBlue"
+                                        text={isSignup ? "Cadastrar" : "Entrar"}
+                                    />
+                                </>
+                                :
+                                <>
+                                    <Box p={3}>
+                                        <FormControl variant="floating" isRequired>
+                                            <Field
+                                                as={Input}
+                                                placeholder=" "
+                                                name='nome'
+                                            />
+                                            <FormLabel>Nome</FormLabel>
+                                        </FormControl>
+                                    </Box>
+                                    <Box p={3}>
+                                        <FormControl variant="floating" isRequired>
+                                            <Field
+                                                as={Input}
+                                                placeholder=" "
+                                                name='sobrenome'
+                                            />
+                                            <FormLabel>Sobrenome</FormLabel>
+                                        </FormControl>
+                                    </Box>
+                                    <Box p={3}>
+                                        <FormControl variant="floating" isRequired>
+                                            <Field
+                                                as={Input}
+                                                placeholder=" "
+                                                name='usuario'
+                                            />
+                                            <FormLabel>Usuário</FormLabel>
+                                        </FormControl>
+                                    </Box>
+                                    <Box p={3}>
+                                        <Flex>
+                                            <FormControl>
+                                                <Field
+                                                    as={Switch}
+                                                    id='usuarioAutomatico'
+                                                />
+                                            </FormControl>
+                                            <span>Usuário Automatico</span>
+                                            <Popover>
+                                                <PopoverTrigger>
+                                                    <IconButton
+                                                        aria-label='Dica usuario automatico'
+                                                        icon={<BsFillQuestionCircleFill />}
+                                                    />
+                                                </PopoverTrigger>
+                                                <PopoverContent>
+                                                    <PopoverArrow />
+                                                    <PopoverCloseButton />
+                                                    <PopoverHeader>Usuário Automatico</PopoverHeader>
+                                                    <PopoverBody>Ao selecionar a opção de usuário automatico. O sistema define seu usuario com o seu primeiro e ultimo nome separado por um '.' (ponto). <br />ex: nome.sobrenome</PopoverBody>
+                                                </PopoverContent>
+                                            </Popover>
+                                        </Flex>
+                                    </Box>
+                                </>
+                            }
+                        </Stack>
                     )}
-                    {/* <Input
-                        type="text"
-                        name="email"
-                        label="Email"
-                        onChange={(e) => dispatch(updateContentAuth(e))}
-                        value={user.email}
-                        isRequired={true}
-                        className="formInput"
-                    />
-                    <Input
-                        type="password"
-                        name="password"
-                        label="Senha"
-                        onChange={(e) => dispatch(updateContentAuth(e))}
-                        value={user.password}
-                        isRequired={true}
-                        className="formInput"
-                    /> */}
-                    {isSignup && (
-                        <>
-                            {/*  <Input
-                                type="password"
-                                name="passwordConfirm"
-                                label="Confirmar Senha"
-                                onChange={(e) => dispatch(updateContentAuth(e))}
-                                value={user.passwordConfirm}
-                                isRequired={true}
-                                className="formInput"
-                            /> */}
-                        </>
-                    )}
-                </form>
-                <Button
-                    type="submit"
-                    name="btnForm"
-                    className="btnBlue"
-                    text={isSignup ? "Cadastrar" : "Entrar"}
-                    onClick={handleSubmit}
-                />
+                </Formik>
+
                 {!isSignup ? (
                     <>
                         <span className='entryWith'>Ou entrar com</span>
