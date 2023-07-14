@@ -43,22 +43,21 @@ export const logout = () => ({
 
 export const register = (formData, navigate) => async (dispatch) => {
     try {
-        const { data } = await api.registerUser(formData);
-        dispatch(authUser(data));
-        navigate('/');
-
+        // const { data } = await api.registerUser(formData);
+        // dispatch(authUser(data));
+        console.log(formData)
     } catch (error) {
         console.log(error.message);
     }
 };
 
 export const login = (formData, navigate) => async (dispatch) => {
+    console.log(formData)
     try {
         const { data } = await api.loginUser(formData);
         dispatch(authUser(data));
-        navigate('/');
     } catch (error) {
-        console.log(error.message);
+        toast.error(error.response.data);
     }
 };
 

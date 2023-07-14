@@ -51,7 +51,8 @@ const EventPage = () => {
         }
     };
 
-    const name = user.txt_nome_completo.split(' ');
+    // const name = user.txt_nome_completo.split(' ');
+    const name = 'sd';
 
     return (
         <>

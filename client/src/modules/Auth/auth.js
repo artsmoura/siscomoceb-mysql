@@ -5,10 +5,11 @@ import Button from '../../components/Button/button';
 import './auth.css';
 import { authUser, clearAuthFields, login, updateContentAuth, register } from './redux/authAction';
 import { GoogleLogin } from 'react-google-login';
-import { Box, FormControl, FormLabel, IconButton, Input, InputGroup, InputRightElement, Popover, Stack, Switch, PopoverTrigger, PopoverContent, PopoverArrow, PopoverCloseButton, PopoverHeader, PopoverBody, Flex } from '@chakra-ui/react';
+import { Box, FormControl, FormLabel, IconButton, Input, InputGroup, InputRightElement, Popover, Stack, Switch, PopoverTrigger, PopoverContent, PopoverArrow, PopoverCloseButton, PopoverHeader, PopoverBody, Flex, FormErrorMessage } from '@chakra-ui/react';
 import { Field, Form, Formik } from "formik";
 import { IoIosEye, IoIosEyeOff } from 'react-icons/io';
 import { BsFillQuestionCircleFill } from 'react-icons/bs';
+import { loginFormSchema, registerFormSchema } from '../../utils/yupSchemas';
 
 const Auth = () => {
 
@@ -18,13 +19,15 @@ const Auth = () => {
 
     const [isSignup, setIsSignup] = useState(false);
     const [showPassword, setShowPassword] = useState(false)
+    const [autoUsuario, setAutoUsuario] = useState(false)
+    const handleAutoUsuario = () => setAutoUsuario(!autoUsuario)
     const seePassword = () => setShowPassword(!showPassword)
 
     const submit = (value) => {
         if (isSignup) {
-            dispatch(register(user, navigate));
+            dispatch(register(user));
         } else {
-            dispatch(login({ txt_usuario: value.email, txt_senha: value.password }, navigate));
+            dispatch(login(value));
         }
     };
 
@@ -49,22 +52,20 @@ const Auth = () => {
     };
 
     const initialValues = isSignup ? {
-        tema: '',
-        localEvento: '',
-        descricaoEvento: '',
-        programacao: '',
-        dataHoraInicio: '',
-        dataHoraFim: '',
-        dataHoraInicioInscricao: '',
-        dataHoraFimInscricao: ''
-    } : {
+        nome: '',
+        sobrenome: '',
+        usuario: '',
         email: '',
-        password: ''
+        txt_senha: '',
+        txt_usuario: '',
+        usuarioAutomatico: ''
+    } : {
+        txt_usuario: '',
+        txt_senha: ''
     };
 
-    console.log(isSignup)
-
     return (
+
         <div className='loginBox'>
             <div className={`boxForm${isSignup === true ? '-signup' : '-login'}`}>
                 {isSignup === true ?
@@ -79,6 +80,7 @@ const Auth = () => {
 
                 <Formik
                     initialValues={initialValues}
+                    validationSchema={!isSignup ? loginFormSchema : registerFormSchema}
                     onSubmit={(values, action) => {
                         action.resetForm();
                         dispatch(submit(values));
@@ -89,23 +91,24 @@ const Auth = () => {
                             {isSignup === false ?
                                 <>
                                     <Box p={3}>
-                                        <FormControl variant="floating" isRequired>
+                                        <FormControl variant="floating" isRequired isInvalid={!!errors.txt_usuario && touched.txt_usuario}>
                                             <Field
                                                 as={Input}
                                                 placeholder=" "
-                                                name='email'
+                                                name='txt_usuario'
                                             />
                                             <FormLabel>Email</FormLabel>
+                                            <FormErrorMessage>{errors.txt_usuario}</FormErrorMessage>
                                         </FormControl>
                                     </Box>
 
                                     <Box p={3}>
-                                        <FormControl variant="floating" isRequired>
+                                        <FormControl variant="floating" isRequired isInvalid={!!errors.txt_senha && touched.txt_senha}>
                                             <InputGroup size='md'>
                                                 <Field
                                                     as={Input}
                                                     placeholder=" "
-                                                    name='password'
+                                                    name='txt_senha'
                                                     type={showPassword ? 'text' : 'password'}
                                                 />
                                                 <FormLabel>Senha</FormLabel>
@@ -117,39 +120,89 @@ const Auth = () => {
                                                     />
                                                 </InputRightElement>
                                             </InputGroup>
+                                            <FormErrorMessage>{errors.txt_senha}</FormErrorMessage>
                                         </FormControl>
                                     </Box>
-                                    <Button
-                                        type="submit"
-                                        name="btnForm"
-                                        className="btnBlue"
-                                        text={isSignup ? "Cadastrar" : "Entrar"}
-                                    />
                                 </>
                                 :
                                 <>
                                     <Box p={3}>
-                                        <FormControl variant="floating" isRequired>
+                                        <FormControl variant="floating" isRequired isInvalid={!!errors.nome && touched.nome}>
                                             <Field
                                                 as={Input}
                                                 placeholder=" "
                                                 name='nome'
                                             />
                                             <FormLabel>Nome</FormLabel>
+                                            <FormErrorMessage>{errors.nome}</FormErrorMessage>
                                         </FormControl>
                                     </Box>
                                     <Box p={3}>
-                                        <FormControl variant="floating" isRequired>
+                                        <FormControl variant="floating" isRequired isInvalid={!!errors.sobrenome && touched.sobrenome}>
                                             <Field
                                                 as={Input}
                                                 placeholder=" "
                                                 name='sobrenome'
                                             />
                                             <FormLabel>Sobrenome</FormLabel>
+                                            <FormErrorMessage>{errors.sobrenome}</FormErrorMessage>
                                         </FormControl>
                                     </Box>
                                     <Box p={3}>
-                                        <FormControl variant="floating" isRequired>
+                                        <FormControl variant="floating" isRequired isInvalid={!!errors.email && touched.email}>
+                                            <Field
+                                                as={Input}
+                                                placeholder=" "
+                                                name='email'
+                                            />
+                                            <FormLabel>Email</FormLabel>
+                                            <FormErrorMessage>{errors.email}</FormErrorMessage>
+                                        </FormControl>
+                                    </Box>
+                                    <Box p={3}>
+                                        <FormControl variant="floating" isRequired isInvalid={!!errors.txt_senha && touched.txt_senha}>
+                                            <InputGroup size='md'>
+                                                <Field
+                                                    as={Input}
+                                                    placeholder=" "
+                                                    name='txt_senha'
+                                                    type={showPassword ? 'text' : 'password'}
+                                                />
+                                                <FormLabel>Senha</FormLabel>
+                                                <InputRightElement>
+                                                    <IconButton
+                                                        aria-label='Mostar Senha'
+                                                        icon={showPassword ? <IoIosEyeOff /> : <IoIosEye />}
+                                                        onClick={seePassword}
+                                                    />
+                                                </InputRightElement>
+                                            </InputGroup>
+                                            <FormErrorMessage>{errors.txt_senha}</FormErrorMessage>
+                                        </FormControl>
+                                    </Box>
+                                    <Box p={3}>
+                                        <FormControl variant="floating" isRequired isInvalid={!!errors.confirmPassword && touched.confirmPassword}>
+                                            <InputGroup size='md'>
+                                                <Field
+                                                    as={Input}
+                                                    placeholder=" "
+                                                    name='confirmPassword'
+                                                    type={showPassword ? 'text' : 'password'}
+                                                />
+                                                <FormLabel>Confirmar Senha</FormLabel>
+                                                <InputRightElement>
+                                                    <IconButton
+                                                        aria-label='Mostar Senha'
+                                                        icon={showPassword ? <IoIosEyeOff /> : <IoIosEye />}
+                                                        onClick={seePassword}
+                                                    />
+                                                </InputRightElement>
+                                            </InputGroup>
+                                            <FormErrorMessage>{errors.confirmPassword}</FormErrorMessage>
+                                        </FormControl>
+                                    </Box>
+                                    <Box p={3}>
+                                        <FormControl variant="floating" isRequired isDisabled={autoUsuario}>
                                             <Field
                                                 as={Input}
                                                 placeholder=" "
@@ -159,14 +212,19 @@ const Auth = () => {
                                         </FormControl>
                                     </Box>
                                     <Box p={3}>
-                                        <Flex>
-                                            <FormControl>
+                                        <Flex alignItems='space-arround'>
+                                            <FormControl display='flex' alignItems='center'>
+                                                <FormLabel htmlFor='usuarioAutomatico' mb='0'>
+                                                    Usuário Automatico
+                                                </FormLabel>
                                                 <Field
                                                     as={Switch}
                                                     id='usuarioAutomatico'
+                                                    onChange={handleAutoUsuario}
+                                                // value={autoUsuario}
                                                 />
+                                                <FormErrorMessage>{errors.usuarioAutomatico}</FormErrorMessage>
                                             </FormControl>
-                                            <span>Usuário Automatico</span>
                                             <Popover>
                                                 <PopoverTrigger>
                                                     <IconButton
@@ -185,6 +243,12 @@ const Auth = () => {
                                     </Box>
                                 </>
                             }
+                            <Button
+                                type="submit"
+                                name="btnForm"
+                                className="btnBlue"
+                                text={isSignup ? "Cadastrar" : "Entrar"}
+                            />
                         </Stack>
                     )}
                 </Formik>
@@ -224,6 +288,7 @@ const Auth = () => {
                 </>
             )}
         </div>
+
     );
 };
 
