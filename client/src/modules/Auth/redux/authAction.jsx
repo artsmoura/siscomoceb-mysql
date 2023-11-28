@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import * as api from '../../../api/index.js';
+import * as api from '../../../api/index.jsx';
 
 export const UPDATE_CONTENT_AUTH = "UPDATE_CONTENT_AUTH";
 export const AUTH_USER = "AUTH_USER";

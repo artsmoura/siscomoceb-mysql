@@ -1,5 +1,5 @@
 import { redirect } from 'react-router-dom';
-import * as api from '../../../api/index.js';
+import * as api from '../../../api/index.jsx';
 import { toast } from 'react-toastify';
 
 export const EVENTS_LOAD_SUCCESS = "EVENTS_LOAD_SUCCESS";
