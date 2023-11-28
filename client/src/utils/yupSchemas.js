@@ -41,7 +41,7 @@ export const registerFormSchema = Yup.object().shape({
         .max(100, 'Nome muito longo')
         .required('Campo Obrigatório'),
     email: Yup.string()
-        .email()
+        .email('Necessário que seja um email válido')
         .required('Campo Obrigatório'),
     txt_senha: Yup.string()
         .min(6, 'A senha precisa ter pelo menos 6 caracteres')
@@ -49,20 +49,11 @@ export const registerFormSchema = Yup.object().shape({
     confirmPassword: Yup.string()
         .required('Campo Obrigatório')
         .oneOf([Yup.ref('txt_senha')], 'As senhas não coincidem'),
+    usuarioAutomatico: Yup.boolean(),
     txt_usuario: Yup.string()
-        .when(['usuarioAutomatico'],
-            (usuarioAutomatico, schema, node) => {
-                console.log(usuarioAutomatico)
-                console.log(node)
-                // if (node.value(usuarioAutomatico))
-                //     return this.notRequired()
-                // else return this.required()
-            }
-        ),
-    // usuarioAutomatico: Yup.boolean()
-    //     .when('txt_usuario', {
-    //         is: Yup.ref('txt_usuario') !== '' ? false : true,
-    //         then: (schema) => schema.required(),
-    //         otherwise: (schema) => schema.notRequired()
-    //     }),
+        .when("usuarioAutomatico", {
+            is: (usuarioAutomatico) => usuarioAutomatico === false,
+            then: Yup.string().required('Usuário Obrigatório'),
+            otherwise: Yup.string().notRequired()
+        })
 })
