@@ -1,6 +1,9 @@
 import axios from 'axios';
 
-const API = axios.create({ baseURL: "http://localhost:8900" });
+const API = axios.create({ 
+  withCredentials: true,
+  baseURL: "http://localhost:8900" 
+});
 
 
 export const getEvents = () => API.get("/events");
