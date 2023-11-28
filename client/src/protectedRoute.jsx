@@ -2,9 +2,12 @@ import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
 
 const ProtectedRoute = () => {
-    console.log('entrou??')
+    console.log('????')
     const auth = localStorage.getItem('profile');
-    console.log(auth)
+    const cookie = document.cookie
+    console.log('????')
+    // console.log(auth)
+    // console.log(cookie)
     return auth ? <Outlet /> : <Navigate to="/login" />;
 };
 
