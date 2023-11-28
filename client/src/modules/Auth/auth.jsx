@@ -10,37 +10,8 @@ import LoginForm from './login/loginForm';
 const Auth = () => {
 
     const dispatch = useDispatch();
-    const user = useSelector((state) => state.authState.user);
-    const navigate = useNavigate();
 
     const [isRegister, setRegister] = useState(false);
-    const [showPassword, setShowPassword] = useState(false)
-    const [autoUsuario, setAutoUsuario] = useState(false)
-    const handleAutoUsuario = () => setAutoUsuario(!autoUsuario)
-    const seePassword = () => setShowPassword(!showPassword)
-
-    const submit = (value) => {
-        if (isRegister) {
-            dispatch(register(user));
-        } else {
-            dispatch(login(value));
-        }
-    };
-
-    const googleSuccess = async (res) => {
-        const result = res?.progileObj;
-        const token = res?.tokenId;
-
-        try {
-            dispatch(authUser({ user: { result, token } }));
-            navigate('/');
-        } catch (error) {
-            console.log(error?.message);
-        }
-    };
-    const googleFailure = () => {
-        console.log("Google login error");
-    };
 
     const handleScreenType = () => {
         setRegister(!isRegister);
@@ -65,13 +36,13 @@ const Auth = () => {
 
                 {!isRegister ? (
                     <>
-                        <span className='entryWith'>Ou entrar com</span>
+                        {/* <span className='entryWith'>Ou entrar com</span>
                         <GoogleLogin
                             buttonText="Entrar com Google"
                             onSuccess={googleSuccess}
                             onFailure={googleFailure}
                             cookiePolicy="single_host_origin"
-                        />
+                        /> */}
                         <div className='haveAccount'>
                             <p>
                                 {"Não possui conta? "}
