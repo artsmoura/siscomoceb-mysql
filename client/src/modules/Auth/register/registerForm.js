@@ -3,10 +3,11 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { registerFormSchema } from "../../../utils/yupSchemas";
 import { register } from "../redux/authAction";
-import { Box, Button, FormControl, FormErrorMessage, FormLabel, IconButton, Input, InputGroup, InputRightElement, Popover, PopoverArrow, PopoverBody, PopoverCloseButton, PopoverContent, PopoverHeader, PopoverTrigger, Stack, Switch } from "@chakra-ui/react";
+import { Box, Button, Flex, FormControl, FormErrorMessage, FormLabel, IconButton, Input, InputGroup, InputRightElement, Popover, PopoverArrow, PopoverBody, PopoverCloseButton, PopoverContent, PopoverHeader, PopoverTrigger, Stack, Switch } from "@chakra-ui/react";
 import { IoIosEye, IoIosEyeOff } from "react-icons/io";
+import { BsFillQuestionCircleFill } from "react-icons/bs";
 
-const registerForm = () => {
+const RegisterForm = () => {
     const dispatch = useDispatch()
     const [showPassword, setShowPassword] = useState(false)
     const [autoUsuario, setAutoUsuario] = useState(false)
@@ -14,7 +15,10 @@ const registerForm = () => {
     const seePassword = () => setShowPassword(!showPassword)
 
     const submit = (values) => {
-        dispatch(register(values))
+        dispatch(register({
+            ...values,
+            usuarioAutomatico: autoUsuario
+        }))
     }
 
     const initialValues = {
@@ -154,15 +158,15 @@ const registerForm = () => {
                         </Flex>
                     </Box>
                     <Button
-                        type="submit"
-                        name="btnForm"
-                        className="btnBlue"
-                        text="Cadastrar"
-                    />
+                        type='submit'
+                        colorScheme='blue'
+                    >
+                        Cadastrar
+                    </Button>
                 </Stack>
             )}
         </Formik>
     )
 }
 
-export default registerForm
+export default RegisterForm
