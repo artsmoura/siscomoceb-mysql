@@ -38,48 +38,27 @@ export const login = (req, res) => {
 
     db.query(q, [req.body.txt_usuario, req.body.txt_usuario], (error, data) => {
         if (error) return res.json(error);
-        if (data.length === 0) {
-            const q = `SELECT * FROM tab_usuario WHERE txt_email_usuario = ? or txt_usuario = ?`;
+        if (data.length === 0) return res.status(404).json('Usuario não encontrado');
 
-            db.query(q, [req.body.txt_usuario, req.body.txt_usuario], (error, data) => {
-                if (error) return res.json(error);
-                if (data.length === 0) return res.status(404).json('Usuario não encontrado');
+        const hashPassword = crypto.createHash('md5').update(req.body.txt_senha).digest('hex');
 
-                const hashPassword = crypto.createHash('md5').update(req.body.txt_senha).digest('hex');
+        if (hashPassword !== data[0].txt_senha) return res.status(400).json("Usuario ou senha incorretos");
 
-                if (hashPassword !== data[0].txt_senha) return res.status(400).json("Usuario ou senha incorretos");
+        const token = jwt.sign({
+            id: data[0].cod_usuario
+        }, process.env.JWTPRIVATEKEY, { expiresIn: "12h" });
 
-                const token = jwt.sign({
-                    id: data[0].cod_usuario
-                }, process.env.JWTPRIVATEKEY, { expiresIn: "12h" });
+        const { txt_senha, ...user } = data[0];
 
-                var cadastroIncompleto = true
-
-                const { txt_senha, ...user } = data[0];
-
-                res
-                    .cookie('access_token', token, { httpOnly: true, sameSite: 'None', secure: true, maxAge: 24 * 60 * 60 * 1000 })
-                    .status(200)
-                    .json({ user, cadastroIncompleto });
+        res
+            .cookie('access_token', token, {
+                httpOnly: true, 
+                sameSite: 'None', 
+                secure: true, 
+                maxAge: 24 * 60 * 60 * 1000
             })
-        };
-
-        if (data.length !== 0) {
-            const hashPassword = crypto.createHash('md5').update(req.body.txt_senha).digest('hex');
-
-            if (hashPassword !== data[0].txt_senha) return res.status(400).json("Usuario ou senha incorretos");
-
-            const token = jwt.sign({
-                id: data[0].cod_usuario
-            }, process.env.JWTPRIVATEKEY, { expiresIn: "12h" });
-
-            const { txt_senha, ...user } = data[0];
-
-            res
-                .cookie('access_token', token, { httpOnly: true, sameSite: 'None', secure: true, maxAge: 24 * 60 * 60 * 1000 })
-                .status(200)
-                .json(user);
-        }
+            .status(200)
+            .json(user);
 
     });
 }
