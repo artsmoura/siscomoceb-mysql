@@ -46,7 +46,6 @@ export default (state = inicialState, action) => {
             };
         case AUTH_USER:
             localStorage.setItem('profile', JSON.stringify({ ...action.payload['user'] }));
-            localStorage.setItem('cadastroIncompleto', action.payload['cadastroIncompleto']);
             return {
                 ...state,
                 user: action.payload

@@ -28,7 +28,7 @@ const LoginForm = () => {
             validationSchema={loginFormSchema}
             onSubmit={(values, action) => {
                 action.resetForm();
-                dispatch(submit(values));
+                submit(values);
             }}
         >
             {({ handleSubmit, errors, touched }) => (
